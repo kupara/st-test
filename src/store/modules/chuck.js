@@ -46,16 +46,10 @@ export function fetchJoke(category) {
       const response = await axios.get(
         `${CHUCK_NORRIS_API}/random?category=${category}`
       );
-      const res = response.data;
-      const postCodes = [];
-      const towns = [];
-      res.forEach(item => postCodes.push(item.code));
-      res.forEach(item => towns.push(item.office));
       dispatch({
         type: CATEGORY_JOKE_FETCH_SUCCESS,
         payload: {
-          towns,
-          postCodes,
+          data: response.data,
         },
       });
     } catch (e) {
@@ -63,7 +57,6 @@ export function fetchJoke(category) {
         type: CATEGORY_JOKE_FETCH__FAILURE,
         payload: {
           errorMessage: 'There was an error fetching the joke',
-          error: e,
         },
       });
     }
@@ -78,21 +71,40 @@ export function fetchJoke(category) {
 // =========================================================================
 
 const ACTION_HANDLERS = {
+  [CATEGORIES_FETCH__REQUEST]: state =>
+    Object.assign({}, state, {
+      loadingCategories: true,
+      errorMessage: '',
+    }),
+  [CATEGORIES_FETCH__SUCCESS]: (state, action) =>
+    Object.assign({}, state, {
+      loadingCategories: false,
+      loadingCategoriesComplete: true,
+      categories: action.payload.data,
+    }),
+  [CATEGORIES_FETCH__FAILURE]: (state, action) =>
+    Object.assign({}, state, {
+      loadingCategories: false,
+      categories: [],
+      errorMessage: action.payload.errorMessage,
+    }),
   [CATEGORY_JOKE_REQUEST]: state =>
     Object.assign({}, state, {
-      loadingMetaData: true,
+      loadingJoke: true,
       errorMessage: '',
+      joke: '',
     }),
   [CATEGORY_JOKE_FETCH_SUCCESS]: (state, action) =>
     Object.assign({}, state, {
-      loadingMetaData: false,
-      towns: action.payload.towns,
-      postCodes: action.payload.postCodes,
+      loadingJoke: false,
+      loadingJokeComplete: true,
+      joke: action.payload.data,
     }),
   [CATEGORY_JOKE_FETCH__FAILURE]: (state, action) =>
     Object.assign({}, state, {
-      loadingMetaData: false,
+      loadingJoke: false,
       errorMessage: action.payload.errorMessage,
+      joke: '',
     }),
 };
 
@@ -101,10 +113,12 @@ const ACTION_HANDLERS = {
 // ========
 
 const initialState = {
+  loadingCategories: false,
   categories: [],
-  isLoading: false,
-  loaded: false,
+  loadingCategoriesComplete: false,
+  loadingJoke: false,
   joke: {},
+  loadingJokeComplete: false,
 };
 
 function reducer(state = initialState, action) {

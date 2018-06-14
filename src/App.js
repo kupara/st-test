@@ -1,21 +1,20 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { Provider } from 'react-redux';
 
 import createStore from './store/createStore';
 
-const store = createStore();
-import Header from './Header/';
+import Header from './Header';
 import Jokes from './Jokes/';
 
-export default class App extends Component {
-  render() {
-    return (
-      <Fragment>
-        <Header />
-        <Provider store={store}>
-          <Jokes />
-        </Provider>
-      </Fragment>
-    );
-  }
-}
+const store = createStore();
+
+const App = () => (
+  <Fragment>
+    <Header />
+    <Provider store={store}>
+      <Jokes />
+    </Provider>
+  </Fragment>
+);
+
+export default App;
