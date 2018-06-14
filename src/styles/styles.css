@@ -1,0 +1,17 @@
+html {
+  font-size: 62.5%;
+}
+
+.header {
+  height: 6rem;
+  background-color: #222222;
+}
+
+.container {
+  width: 76.8rem;
+  margin: 1rem auto;
+  text-align: center;
+}
+.container .image-header {
+  width: 36rem;
+}

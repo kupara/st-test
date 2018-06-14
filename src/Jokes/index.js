@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { fetchCategories, fetchJoke } from '../store/modules/chuck';
+import logo from '../images/logo.png';
 
 class JokesContainer extends Component {
   static propTypes = {
@@ -11,7 +12,7 @@ class JokesContainer extends Component {
   };
 
   state = {
-    selectedCategory: 'random',
+    selectedCategory: 'science',
   };
 
   componentDidMount = async () => {
@@ -21,7 +22,12 @@ class JokesContainer extends Component {
 
   render() {
     const { selectedCategory } = this.state;
-    return <div> {selectedCategory} </div>;
+    return (
+      <div className="container">
+        <img src={logo} alt="logo" className="image-header" />
+        {selectedCategory}
+      </div>
+    );
   }
 }
 
