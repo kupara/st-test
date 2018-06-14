@@ -6,5 +6,3 @@ import App from './App';
 const rootElement = document.getElementById('root');
 
 render(<App />, rootElement);
-
-// console.log('Hello World');
