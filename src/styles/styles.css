@@ -28,6 +28,13 @@ html {
     padding: 1rem;
   }
 }
+@media screen and (max-width: 32rem) {
+  .container {
+    width: 100%;
+    margin: 0;
+    padding: 0.5rem;
+  }
+}
 .container .header {
   font-size: 2.4rem;
   background-color: white;
@@ -42,10 +49,6 @@ html {
 }
 .container .accordion.styled .title {
   font-size: 2rem;
-}
-.container .accordion.styled .title .ui.dimmer.active {
-  opacity: 0.3;
-  background-color: rgba(86, 86, 86, 0.2);
 }
 .container .accordion.styled .content {
   font-size: 1.6rem;

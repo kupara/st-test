@@ -1,15 +1,8 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Accordion, Icon, Loader, Dimmer } from 'semantic-ui-react';
+import { Accordion, Icon, Loader } from 'semantic-ui-react';
 
-const JokeAccordion = ({
-  activeIndex,
-  category,
-  handleClick,
-  index,
-  loadingJoke,
-  joke,
-}) => {
+const JokeAccordion = ({ activeIndex, category, handleClick, index, joke }) => {
   const active = activeIndex === index;
 
   const title = active
@@ -20,9 +13,6 @@ const JokeAccordion = ({
       <Accordion.Title index={index} onClick={handleClick}>
         <Icon name="dropdown" />
         {title}
-        <Dimmer active={loadingJoke}>
-          <Loader />
-        </Dimmer>
       </Accordion.Title>
       <Accordion.Content active={active}>
         <div>
@@ -42,7 +32,6 @@ JokeAccordion.propTypes = {
   joke: PropTypes.shape({
     value: PropTypes.string,
   }).isRequired,
-  loadingJoke: PropTypes.bool.isRequired,
 };
 
 export default JokeAccordion;

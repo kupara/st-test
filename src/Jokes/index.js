@@ -20,15 +20,16 @@ class JokesContainer extends Component {
   };
 
   state = {
-    selectedCategory: 'science',
     activeIndex: 0,
   };
 
   componentDidMount = async () => {
-    const { fetchCategories: load, fetchJoke: _fetchJoke } = this.props;
-    const { selectedCategory } = this.state;
-    await load();
-    await _fetchJoke(selectedCategory);
+    const {
+      fetchCategories: loadCategories,
+      fetchJoke: _fetchJoke,
+    } = this.props;
+    await loadCategories();
+    await _fetchJoke(this.props.categories[0]);
   };
 
   handleClick = (e, titleProps) => {
